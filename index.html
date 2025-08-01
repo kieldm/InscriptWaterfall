@@ -1,0 +1,339 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inscript - Waterfall</title>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.2/p5.min.js"></script>
+
+    <!-- FOR SVG EXPORT -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/p5.js-svg@1.5.1"></script> -->
+    <!-- <script src="libraries/p5.svg.js"></script> -->
+
+    <script src="https://unpkg.com/h264-mp4-encoder/embuild/dist/h264-mp4-encoder.web.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script src="sketch_waterfall.js" type="text/javascript"></script>
+    <script src="class_spill.js" type="text/javascript"></script>
+    <script src="textures.js" type="text/javascript"></script>
+    <script src="update.js" type="text/javascript"></script>
+
+    <script src="animators.js" type="text/javascript"></script>
+    <script src="recording.js" type="text/javascript"></script>
+    <script src="sizing.js" type="text/javascript"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="left-column" id="left-UI">
+
+        <div class="module">
+          <h1>Inscript</h1>
+          <h1>Waterfall</h1>
+          
+          <!-- <h2>Version 0.1 - beta | March 24, 2025</h2> -->
+        </div>
+
+        <div class="module">
+          <h3>Canvas</h3>
+
+          <div class="subModule">
+            <select name="canvasSize" id="canvasSize" onchange="setCanvasSize(this.value)">
+              <option value="0" selected="selected">Square</option>
+              <option value="1">Horizontal</option>
+              <option value="2">Vertical</option>
+              <option value="3">Full Screen</option>
+              <option value="4">Custom</option>
+            </select>
+
+            <div id="customSizeInputs">
+              <div class="moduleLabel">W:</div>
+              <input type="number" name="wInput" value="1080" oninput="setCustomW(this.value)">
+              <div class="moduleLabel">H:</div>
+              <input type="number" name="hInput" value="1350"  oninput="setCustomH(this.value)">
+            </div>
+
+            <!-- <div class="subModule">
+              <input type="color" id="bkgdColor" name="bkgdColor" value="#ffffff" oninput="setBkgdColor(this.value)">
+              <div class="moduleLabel">Background</div>
+            </div> -->
+          </div>
+
+        </div>
+
+        <div class="module">
+          <h3>Type</h3>
+        
+          <div class="subModule">
+            <div class="moduleLabel">Text</div>
+            <textarea id="textArea" rows=4 oninput="setText()"></textarea>
+          </div>
+
+          <div class="subModule">
+            <select name="fontSelect" id="fontSelect" onchange="setFont(this.value)">
+              <option value="0">Inter - Medium</option>
+              <option value="1">Geist - Extra Bold</option>
+              <option value="2">Evans Narrow - Bold Italic</option>
+              <option value="3" selected>Heading Now - Medium</option>
+              <option value="4">Neue World - Condensed Regular</option>
+            </select>
+
+          </div>
+
+        </div>
+
+        <div class="module">
+          <h3>Grid</h3>
+
+          <div class="subModule">
+            <div class="moduleLabel">Resolution</div>
+            <input type="range" class="ranger" min="0" max="100" value="50" id="sandRes" oninput="setSandRes(this.value)">
+          </div>
+
+          <div class="subModuleRow">
+            <input type="checkbox" checked id="staggerXgrid" name="staggerXgridToggle" onclick="setStaggerX()">
+            <label for="staggerXgrid">Stagger X</label>
+          <!-- </div>
+
+          <div class="subModuleRow"> -->
+            <input type="checkbox" id="staggerYgrid" name="staggerYgridToggle" onclick="setStaggerY()">
+            <label for="staggerYgrid">Stagger Y</label>
+          </div>
+
+          <div class="subModule">
+            <div class="moduleLabel">Stroke Weight</div>
+            <input type="range" class="ranger" min="0" max="100" value="40" id="swFactor" oninput="setSWfactor(this.value)">
+          </div>
+        </div>
+
+        <div class="module">
+          <h3>Animation</h3>
+        
+          <div class="subModule">
+            <div class="moduleLabel">Mode</div>
+            <select name="animMode" id="animMode" onchange="setAnimMode(this.value)">
+              <option value="0" selected>Type Loop</option>
+              <option value="1">Foreground Reveal</option>
+              <!-- <option value="2">Work Reveal</option> -->
+            </select>
+          </div>
+
+          <div class="subModuleRow">
+            <input type="checkbox" id="imageForeToggle" name="imageForeToggle" onclick="setImageForeToggle()">
+            <label for="imageForeToggle">Image Foreground</label>
+          </div>
+
+          <div class="subModule" id="imageFore">
+            <input type="file" id="uploadImage" class="fileInput" name="uploadImage" accept="image/png, image/jpeg, image/gif" oninput="setUploadImage(this)">
+            <span class="uploadSpan" id="uploadedImage"></span>
+
+            <div class="subModuleRow">
+              <input type="checkbox" id="imageInvertToggle" name="imageInvertToggle" onclick="setImageInvertToggle()">
+              <label for="imageInvertToggle">Invert Background</label>
+            </div>
+          </div>
+
+          <div class="subModule3_pair" id="colorFore">
+            <div class="subModule4">
+              <input type="color" id="bkgdColor" name="bkgdColor" value="#000000" oninput="setBkgdColor(this.value)">
+              <div class="moduleLabel">Background</div>
+            </div>
+
+            <div class="subModule4">
+              <input type="color" id="foreColor" name="foreColor" value="#ffffff" oninput="setForeColor(this.value)">
+              <div class="moduleLabel">Foreground</div>
+            </div>
+          </div>      
+
+          <div class="subModule">
+            <div class="moduleLabel">Intro</div>
+            <select name="animPreset0" id="animPreset0" onchange="setAnimPreset0(this.value)">
+              <option value="0" selected>In - Out Radial</option>
+              <option value="1">Top - Bottom</option>
+            </select>
+          </div>
+
+          <div class="subModule">
+            <div class="moduleLabel">Outro</div>
+            <select name="animPreset1" id="animPreset1" onchange="setAnimPreset1(this.value)">
+              <option value="0" selected>Out - In Radial</option>
+              <option value="1">Bottom - Top</option>
+            </select>
+          </div>
+
+          <div class="subModuleRow">
+            <input type="checkbox" checked id="textureOffset" name="textureOffsetToggle" onclick="setOffsetTextureToggle()">
+            <label for="textureOffset">Textured Offset</label>
+          </div>
+        </div>
+
+        <!-- <div class="module">
+          <h3>Image</h3>
+        
+          <div class="subModule">
+            <input type="file" id="uploadImage" class="fileInput" name="uploadImage" accept="image/png, image/jpeg, image/gif" oninput="setUploadImage(this)">
+          </div>
+          <span class="uploadSpan" id="uploadedImage"></span>
+
+          <div class="subModuleRow">
+            <input type="checkbox" id="imageOnlyToggle" name="imageOnlyToggle" onclick="setImageOnlyToggle()">
+            <label for="imageOnlyToggle">Image Only</label>
+          </div>
+
+          <div class="subModule">
+            <div class="moduleLabel">Size</div>
+            <input type="range" class="ranger" min="0" max="100" value="25" id="userSize" onchange="setUserSize(this.value)">
+          </div>
+
+          <div class="subModule3_pair">
+            <div class="subModule4">
+              <div class="moduleLabel">X Offset</div>
+              <input type="range" class="ranger" min="0" max="100" value="50" id="userXoffset" onchange="setUserXoffset(this.value)">
+            </div>
+
+            <div class="subModule4">
+              <div class="moduleLabel">Y Offset</div>
+              <input type="range" class="ranger" min="0" max="100" value="50" id="userYoffset" onchange="setUserYoffset(this.value)">
+            </div>
+          </div>
+
+          <div class="subModuleSubButton">
+            <input type="button" class="subButton" name="userReset" id="userReset" value="Reset" onclick="runUserReset()">
+          </div>
+
+        </div> -->
+
+        <!-- <div class="module">
+          <h3>Resolution Points</h3>
+
+          <div class="subModule">
+            <div class="moduleLabel">Count: <span id="resCount">8</span>/20 </div>
+
+            <div class="subModule3_pair">
+              <div class="subModule5b">
+                <input type="button" name="resCountAdd" id="resCountAdd" value="+" onclick="setResCount(1)">
+              </div>
+  
+              <div class="subModule5b">
+                <input type="button" name="resCountMinus" id="resCountMinus" value="-" onclick="setResCount(-1)">
+              </div>
+            </div>
+
+          </div>
+
+          <div class="subModuleRow">
+            <input type="checkbox" id="indRadiToggle" name="indRadiToggle" onclick="setIndRadiToggle()" checked>
+            <label for="ignoreBkgdDotToggle">Individual Res Radii</label>
+          </div>
+
+          <div class="subModule" id="coreResRadiSettings">
+            <div class="moduleLabel">Core Resolution Radius</div>
+            <input type="range" class="ranger" min="0" max="100" value="25" id="dotInflu" oninput="setDotInflu(this.value)">
+          </div>
+
+          <div class="subModule" id="indResRadiSettings">
+            <div class="moduleLabel">Selected Resolution Radius</div>
+            <input type="range" class="ranger" min="0" max="100" value="25" id="indDotInflu" oninput="setIndDotInflu(this.value)">
+          </div>
+
+
+        </div> -->
+
+        <!-- <div class="module">
+          <h3>Dots</h3>
+          
+          <div class="subModule">
+            <div class="moduleLabel">Dot Padding</div>
+            <input type="range" class="ranger" min="0" max="100" value="10" id="dotPad" oninput="setDotPad(this.value)">
+          </div>
+
+          <div class="subModuleRow">
+            <input type="checkbox" id="ignoreBkgdDotToggle" name="ignoreBkgdDotToggle" onclick="setIgnoreBkgdDotToggle()" checked>
+            <label for="ignoreBkgdDotToggle">Ignore Bkgd Color Dots</label>
+          </div>
+        </div> -->
+
+        <!-- <div class="module">
+          <h3>Animate</h3>
+          
+          <div class="subModuleRow">
+            <input type="checkbox" id="animateToggle" name="animateToggle" onclick="setAnimateToggle()">
+            <label for="animateToggle">Animate Mode</label>
+          </div>
+
+          <div id="animateOption">
+            <div class="subModule">
+              <input type="button" name="playAnim" id="playAnim" value="Play" onclick="runPlay()">
+            </div>
+
+            <div class="subModule">
+              <div class="moduleLabel">Transition Length</div>
+              <input type="range" class="ranger" min="0" max="100" value="35" id="animWin" oninput="setAnimWin(this.value)">
+            </div>
+
+          </div>
+          
+        </div> -->
+
+        <!-- <div class="module">
+          <h3>Export</h3>
+
+          <div class="subModule">
+            <div class="subModule3_pair">
+              <div class="subModule5a">
+                <select name="saveFileType" id="saveFileType" onchange="setSaveFileType(this.value)">
+                  <option value="0" selected="selected">PNG</option>
+                  <option value="1">JPG</option>
+                  <option value="2">MP4</option>
+                </select>
+              </div>
+
+              <div class="subModule5b">
+                <input type="button" name="setDefault" id="setDefault" value="Export" onclick="runExport()">
+              </div>
+            </div>
+          </div>
+
+
+          <div class="subModule3" id="alphaBkgdOption">
+            <input type="checkbox" id="alphaBkgdToggle" name="alphaBkgdToggle" onclick="setAlphaBkgdToggle()">
+            <label for="alphaBkgdToggle">Alpha Bkgd</label>
+          </div>
+
+          
+          <div class="subModule" id="motionOptions">
+            <div class="moduleLabel">Length: <span id="numFrames">30</span> fr @ 30fps</div>
+
+            <div class="subModuleSubButton" id="loopNowPossible">
+              <input type="button" class="subButton" name="approxLoop" id="approxLoop" value="Suggested Loop" onclick="setApproxLoop()">
+            </div>
+  
+          </div>
+
+          <div class="subModule" id="recStatus">
+            <h4>RECORDING IN PROCESS <br><span id="recTicker"></span>/<span id="numFrame"></span></h4>
+          </div>
+        </div> -->
+
+      </div>
+
+      <div class="right-column">
+        <div id="previewScale">Preview Scaled </div>
+        <div class="centerButton" id="canvas-container"></div>
+      </div>
+    </div>
+  
+
+  </body>
+  
+  </html>
+  

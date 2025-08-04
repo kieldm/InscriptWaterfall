@@ -22,9 +22,11 @@ var tracking = 0;
 var sands = [];
 var sandRes = 10;
 
+var resolveWin = 0;
 var animA = 60;
 var animB = animA + 30;
 var animC = animB + 60;
+var animD = animC + resolveWin;
 
 var animPreset0 = 0;
 var animPreset1 = 0;
@@ -62,6 +64,7 @@ var mainCanvas;
 var canvasContainer; 
 
 var staticSaving = false;
+var animateToggle = false;
 
 var staggerX = true;
 var staggerY = false;
@@ -135,6 +138,10 @@ function draw() {
     // translate(width/2, height/2);
     // scale(previewScaler);
     // translate(-width/2, -height/2);
+    
+    // translate(width/2, height/2);
+    // scale(0.2);
+    // translate(-width/2, -height/2);
 
     // image(corePG, width/2, height/2);
 
@@ -161,11 +168,11 @@ function draw() {
   // blendMode(MULTIPLY);
   // background(255);
 
-  textSize(10);
-  textFont(tFont[0]);
-  noStroke();
-  fill(foreColor);
-  text(round(frameRate()), 20, 20);
+  // textSize(10);
+  // textFont(tFont[0]);
+  // noStroke();
+  // fill(foreColor);
+  // text(round(frameRate()), 20, 20);
 
   runRecording();
 }

@@ -145,7 +145,6 @@ canvas {
   display:flex;
   flex-direction: row;
 }
-
 .subModuleRow .moduleLabel {
   /* margin-left:5px; */
   margin-top:2px;
@@ -202,6 +201,16 @@ canvas {
 
   padding-right:12px;
 
+}
+
+.subModuleLabel_duo {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.subModuleLabel_duo input {
+  width:30px;
 }
 
 .subModule5b {
@@ -298,19 +307,12 @@ textarea {
 
 input[type=number]{
   font-family: "Geist", sans-serif;
+  width: 40px;
+}
 
-  text-align:center;
-  width:60px;
-  height:20px;
-
-  padding:0;
-  margin-left:5px;
-  margin-right:20px;
-
-  border:0;
-  border-radius: 3px;
-  background-color: #dcdcdc;
-  color: #000000;
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  opacity: 1; /* Makes them always visible */
 }
 
 input[type=file]{

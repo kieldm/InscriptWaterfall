@@ -95,7 +95,11 @@
           <h3>Grid</h3>
 
           <div class="subModule">
-            <div class="moduleLabel">Resolution</div>
+            <div class="subModuleLabel_duo">
+              <div class="moduleLabel">Resolution</div>
+              <input type="number" min="3" max="20" value="10" id="sandResInput" oninput="setSandResInput(this.value)"></input>
+            </div>
+
             <input type="range" class="ranger" min="0" max="100" value="50" id="sandRes" oninput="setSandRes(this.value)">
           </div>
 
@@ -110,8 +114,12 @@
           </div>
 
           <div class="subModule">
-            <div class="moduleLabel">Stroke Weight</div>
-            <input type="range" class="ranger" min="0" max="100" value="40" id="swFactor" oninput="setSWfactor(this.value)">
+            <div class="subModuleLabel_duo">
+              <div class="moduleLabel">Stroke Weight</div>
+              <input type="number" min="0.1" max="2" value="1" step="0.1" id="swFactorInput" oninput="setSWfactorInput(this.value)"></input>
+            </div>
+
+            <input type="range" class="ranger" min="0" max="100" value="50" id="swFactor" oninput="setSWfactor(this.value)">
           </div>
         </div>
 
@@ -122,7 +130,7 @@
             <div class="moduleLabel">Mode</div>
             <select name="animMode" id="animMode" onchange="setAnimMode(this.value)">
               <option value="0" selected>Type Loop</option>
-              <option value="1">Foreground Reveal</option>
+              <option value="1">Reveal</option>
               <!-- <option value="2">Work Reveal</option> -->
             </select>
           </div>
@@ -158,7 +166,8 @@
             <div class="moduleLabel">Intro</div>
             <select name="animPreset0" id="animPreset0" onchange="setAnimPreset0(this.value)">
               <option value="0" selected>In - Out Radial</option>
-              <option value="1">Top - Bottom</option>
+              <option value="1">Top - Bottom Linear</option>
+              <option value="2">Left/Right Split</option>
             </select>
           </div>
 
@@ -166,7 +175,9 @@
             <div class="moduleLabel">Outro</div>
             <select name="animPreset1" id="animPreset1" onchange="setAnimPreset1(this.value)">
               <option value="0" selected>Out - In Radial</option>
-              <option value="1">Bottom - Top</option>
+              <option value="1">Bottom - Top Linear</option>
+              <option value="2">Left/Right Split</option>
+
             </select>
           </div>
 
@@ -284,7 +295,7 @@
           
         </div> -->
 
-        <!-- <div class="module">
+        <div class="module">
           <h3>Export</h3>
 
           <div class="subModule">
@@ -304,14 +315,14 @@
           </div>
 
 
-          <div class="subModule3" id="alphaBkgdOption">
+          <!-- <div class="subModule3" id="alphaBkgdOption">
             <input type="checkbox" id="alphaBkgdToggle" name="alphaBkgdToggle" onclick="setAlphaBkgdToggle()">
             <label for="alphaBkgdToggle">Alpha Bkgd</label>
-          </div>
+          </div> -->
 
           
           <div class="subModule" id="motionOptions">
-            <div class="moduleLabel">Length: <span id="numFrames">30</span> fr @ 30fps</div>
+            <div class="moduleLabel">Length: <span id="numFrames">150</span> fr @ 30fps</div>
 
             <div class="subModuleSubButton" id="loopNowPossible">
               <input type="button" class="subButton" name="approxLoop" id="approxLoop" value="Suggested Loop" onclick="setApproxLoop()">
@@ -322,7 +333,7 @@
           <div class="subModule" id="recStatus">
             <h4>RECORDING IN PROCESS <br><span id="recTicker"></span>/<span id="numFrame"></span></h4>
           </div>
-        </div> -->
+        </div>
 
       </div>
 

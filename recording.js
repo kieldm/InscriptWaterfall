@@ -2,9 +2,9 @@ function runSave(){
   print("runSave");
   setRecorder();
 
-  print("record length: " + numFrames);
-
   figureNumFrames();
+
+  console.log("record length: " + numFrames);
 
   var span = document.getElementById("numFrame");
   span.textContent = numFrames;
@@ -21,19 +21,19 @@ function runRecording(){
     console.log('recording')
    
     // 3D Renderer
-    let offscreenCanvas = document.createElement("canvas");
-    offscreenCanvas.width = encoder.width;
-    offscreenCanvas.height = encoder.height;
-    let ctx = offscreenCanvas.getContext("2d");
-    ctx.drawImage(canvas,0,0);
-    if(recordedFrames > 0){
-      encoder.addFrameRgba(ctx.getImageData(0, 0, encoder.width, encoder.height).data)
-    }
+    // let offscreenCanvas = document.createElement("canvas");
+    // offscreenCanvas.width = encoder.width;
+    // offscreenCanvas.height = encoder.height;
+    // let ctx = offscreenCanvas.getContext("2d");
+    // ctx.drawImage(canvas,0,0);
+    // if(recordedFrames > 0){
+    //   encoder.addFrameRgba(ctx.getImageData(0, 0, encoder.width, encoder.height).data)
+    // }
 
     // 2D Renderer
-    // if(recordedFrames > 0){
-    //   encoder.addFrameRgba(drawingContext.getImageData(0, 0, encoder.width, encoder.height).data);
-    // }
+    if(recordedFrames > 0){
+      encoder.addFrameRgba(drawingContext.getImageData(0, 0, encoder.width, encoder.height).data);
+    }
 
     recordedFrames++
 
@@ -72,7 +72,7 @@ function setRecorder(){
 
   HME.createH264MP4Encoder().then(enc => {
       encoder = enc;
-      encoder.outputFilename = 'profluent_resDotMotion';
+      encoder.outputFilename = 'inscript25_motion';
       encoder.pixelDensity = 2;
       encoder.drawingContext = "webgl";
       encoder.width = cwidth * 2;
@@ -95,5 +95,5 @@ function toggleRecMessage(){
 }
 
 function runJPGsave(){
-  save("STG_boost.jpg");
+  save("inscript25_static.jpg");
 }

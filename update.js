@@ -158,12 +158,10 @@ function setForeColor(val){
 
 function setUserSize(val){
   userSize = map(val, 0, 100, 0.25, 4);
-
 }
 
 function setUserXoffset(val){
   userXoffset = map(val, 0, 100, -mainGraphic.width * 3/4, mainGraphic.width * 3/4);
-
 }
 
 function setUserYoffset(val){
@@ -171,13 +169,35 @@ function setUserYoffset(val){
 }
 
 function setSandRes(val){
-  sandRes = map(val, 0, 100, 20, 3);
+  sandRes = int(map(val, 0, 100, 20, 3));
+  document.getElementById('sandResInput').value = sandRes;
+
+  console.log("SAND RES IS NOW: " + sandRes)
+
+  analyzeText();
+}
+
+function setSandResInput(val){
+  sandRes = val;
+  document.getElementById('sandRes').value = int(map(sandRes,20, 3, 0, 100));
+
+  console.log("SAND RES IS NOW: " + sandRes)
 
   analyzeText();
 }
 
 function setSWfactor(val){
   swFactor = map(val, 0, 100, 0.1, 2);
+  document.getElementById('swFactorInput').value = swFactor;
+
+  for(var m = 0; m < sands.length; m++){
+    sands[m].tweak();
+  }
+}
+
+function setSWfactorInput(val){
+  swFactor = val;
+  document.getElementById('swFactor').value = map(swFactor, 0.1, 2, 0, 100);
 
   for(var m = 0; m < sands.length; m++){
     sands[m].tweak();
@@ -221,7 +241,17 @@ function setOffsetTextureToggle(){
 
 function setAnimMode(val){
   animMode = val;
+
+  if(animMode == 0){
+    resolveWin = 0;
+  } else {
+    resolveWin = 60;
+  }
+  animD = animC + resolveWin;
+
   console.log("ANIM MODE IS NOW: " + animMode);
+
+  analyzeText();
 }
 
 function setAnimPreset0(val){
@@ -249,28 +279,28 @@ function runUserReset(){
 
 }
 
-function setAnimateToggle(){
-  let checkbox = document.getElementById("animateToggle");
-  animateToggle = checkbox.checked ? true : false;
+// function setAnimateToggle(){
+//   let checkbox = document.getElementById("animateToggle");
+//   animateToggle = checkbox.checked ? true : false;
 
-  if(animateToggle){
-    document.getElementById("animateOption").style.display = "block";
+//   if(animateToggle){
+//     document.getElementById("animateOption").style.display = "block";
 
-    document.getElementById("saveFileType").value = 2;
-    setSaveFileType(2);
+//     document.getElementById("saveFileType").value = 2;
+//     setSaveFileType(2);
 
-    figureNumFrames();
+//     figureNumFrames();
 
-  } else {
-    document.getElementById("animateOption").style.display = "none";
+//   } else {
+//     document.getElementById("animateOption").style.display = "none";
 
-    document.getElementById("saveFileType").value = 0;
-    setSaveFileType(0);
-  }
+//     document.getElementById("saveFileType").value = 0;
+//     setSaveFileType(0);
+//   }
 
-  makeDots();
-  // loop();
-}
+//   makeDots();
+//   // loop();
+// }
 
 function figureNumFrames(){
 //   var smallest = width;
@@ -297,8 +327,9 @@ function figureNumFrames(){
 //     document.getElementById('coreResRadiSettings').style.display = "block";
 //     document.getElementById('indResRadiSettings').style.display = "none";    
 //   }
+  numFrames = animD;
 
-  makeDots();
+  analyzeText();
 }
 
 function setImageOnlyToggle(){
@@ -359,34 +390,34 @@ function setUploadImage(inputElement) {
 function setSaveFileType(val){
   saveFileType = val;
 
-  if(animateToggle){
-    if(val == 0 || val == 1 || val == 3){
-      document.getElementById("animateToggle").checked = false;
-      setAnimateToggle();
+  // if(animateToggle){
+  //   if(val == 0 || val == 1 || val == 3){
+  //     document.getElementById("animateToggle").checked = false;
+  //     setAnimateToggle();
       
-    }
-  }
+  //   }
+  // }
 
-  if(val == 0 || val == 3){
-    document.getElementById("alphaBkgdOption").style.display = "flex";
+  // if(val == 0 || val == 3){
+  //   document.getElementById("alphaBkgdOption").style.display = "flex";
 
-  } else {
-    document.getElementById("alphaBkgdOption").style.display = "none";
+  // } else {
+  //   document.getElementById("alphaBkgdOption").style.display = "none";
 
-    document.getElementById("alphaBkgdToggle").checked = false;
-    setAlphaBkgdToggle();
-  }
+  //   document.getElementById("alphaBkgdToggle").checked = false;
+  //   setAlphaBkgdToggle();
+  // }
 
   if(val == 2){
     document.getElementById("motionOptions").style.display = "flex";
 
-    if(animateToggle == false){
-      animateToggle = true;
-      document.getElementById("animateToggle").checked = "true";
-      document.getElementById("animateOption").style.display = "block";
+    // if(animateToggle == false){
+    //   animateToggle = true;
+    //   document.getElementById("animateToggle").checked = "true";
+    //   document.getElementById("animateOption").style.display = "block";
 
-    }
-    makeDots();
+    // }
+    // makeDots();
 
   } else {
     document.getElementById("motionOptions").style.display = "none";
@@ -410,11 +441,11 @@ function runExport(){
 
     if(saveFileType == 0){
       console.log("SAVE PNG! W: " + width + ", H: " + height);
-      save('profluent_resDot.png');
+      save('inscript25_static.png');
 
     } else if(saveFileType == 1){
       console.log("SAVE JPG! W: " + width + ", H: " + height);
-      save('profluent_resDot.jpg');
+      save('inscript25_static.jpg');
 
     }
   

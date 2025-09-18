@@ -145,10 +145,6 @@ function resizeForPreview() {
 
   resizeCanvas(tempWidth, tempHeight);
 
-  wWindowMin = width/8,
-  wWindowMax = width;
-  wWindow = map(scaler, 0, 1, wWindowMin, wWindowMax);
-
   if(previewScaler != 1){
     document.getElementById('previewScale').style.display = "block";
     document.getElementById('previewScale').innerHTML = "Preview Scaled " + round(previewScaler * 100) + "%";
@@ -158,6 +154,10 @@ function resizeForPreview() {
 
   underWidth = width * 1/previewScaler;
   underHeight = height * 1/previewScaler;
+
+  wWindowMin = underWidth/8,
+  wWindowMax = underWidth;
+  wWindow = map(scaler, 0, 1, wWindowMin, wWindowMax);
 
   sizedImage.resize(underWidth, underHeight);
 

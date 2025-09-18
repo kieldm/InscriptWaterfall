@@ -1,7 +1,7 @@
 function windowResized(){
   resizeForPreview();
 
-  setText();
+  // setText();
 }
 
 function resizeForPreview() {
@@ -109,7 +109,6 @@ function resizeForPreview() {
 
     cwidth = width;
     cheight = height;
-
   }// else if(sizeType == 5){              //////// TO IMAGE
   //   var thisImage = defaultImage;
   //   if(userImage){
@@ -156,6 +155,12 @@ function resizeForPreview() {
   } else {
     document.getElementById('previewScale').style.display = "none";
   }
+
+  underWidth = width * 1/previewScaler;
+  underHeight = height * 1/previewScaler;
+
+  sizedImage.resize(underWidth, underHeight);
+
 }
 
 function resizeForSave() {

@@ -12,8 +12,8 @@ class Spill {
     this.p5 = createVector(this.xOrg, this.yOrg);
 
     this.ang0;
-    this.t1 = createVector(this.xOrg, this.yOrg - height);
-    this.t2 = createVector(this.xOrg, this.yOrg + height);
+    this.t1 = createVector(this.xOrg, this.yOrg - underHeight);
+    this.t2 = createVector(this.xOrg, this.yOrg + underHeight);
 
     this.sw = 0;
     this.swOrg = sandRes * swFactor;
@@ -39,25 +39,25 @@ class Spill {
 
     // INTRO STAGGER
     if(animPreset0 == 0){
-      var tk0 = dist(this.xOrg, this.yOrg, width/2, height/2);
-      this.indA = constrain(map(tk0, 0, width/2, animA, 0), 0, animA);
+      var tk0 = dist(this.xOrg, this.yOrg, underWidth/2, underHeight/2);
+      this.indA = constrain(map(tk0, 0, underWidth/2, animA, 0), 0, animA);
       this.t1.set(this.xOrg, -150);
     
     } else if(animPreset0 == 1){
-      var tk0 = dist(0, this.yOrg, 0, height/2 - fullH/2);
-      this.indA = constrain(map(tk0, 0, height, 0, animA), 0, animA);
+      var tk0 = dist(0, this.yOrg, 0, underHeight/2 - fullH/2);
+      this.indA = constrain(map(tk0, 0, underHeight, 0, animA), 0, animA);
       this.t1.set(this.xOrg, -150);
 
     } else if(animPreset0 == 2){
-      if(this.xOrg < width/2){
-        var tk0 = dist(this.xOrg, 0, width/2 - fullW/2, 0);
+      if(this.xOrg < underWidth/2){
+        var tk0 = dist(this.xOrg, 0, underWidth/2 - fullW/2, 0);
         this.indA = constrain(map(tk0, 0, fullW/2, 0, animA), 0, animA);
         this.t1.set(-150, this.yOrg);
 
       } else {
-        var tk0 = dist(this.xOrg, 0, width/2 + fullW/2, 0);
+        var tk0 = dist(this.xOrg, 0, underWidth/2 + fullW/2, 0);
         this.indA = constrain(map(tk0, 0, fullW/2, 0, animA), 0, animA);
-        this.t1.set(width + 150, this.yOrg);
+        this.t1.set(underWidth + 150, this.yOrg);
 
       }
 
@@ -65,26 +65,26 @@ class Spill {
 
     // OUTRO STAGGER
     if(animPreset1 == 0){
-      var tk0 = dist(this.xOrg, this.yOrg, width/2, height/2);
-      this.indB = constrain(map(tk0, 0, width/2, 0, animA), 0, animA);
-      this.t2.set(this.xOrg, height + 150);
+      var tk0 = dist(this.xOrg, this.yOrg, underWidth/2, underHeight/2);
+      this.indB = constrain(map(tk0, 0, underWidth/2, 0, animA), 0, animA);
+      this.t2.set(this.xOrg, underHeight + 150);
 
     } else if(animPreset1 == 1){
-      var tk0 = dist(0, this.yOrg, 0, height/2 - fullH/2);
-      this.indB = constrain(map(tk0, 0, height, animA, 0), 0, animA);
-      this.t2.set(this.xOrg, height + 150);
+      var tk0 = dist(0, this.yOrg, 0, underHeight/2 - fullH/2);
+      this.indB = constrain(map(tk0, 0, underHeight, animA, 0), 0, animA);
+      this.t2.set(this.xOrg, underHeight + 150);
 
     } else if(animPreset1 == 2){
-      if(this.xOrg < width/2){
-        var tk0 = dist(this.xOrg, this.yOrg, width/2 - fullW/2, height/2);
+      if(this.xOrg < underWidth/2){
+        var tk0 = dist(this.xOrg, this.yOrg, underWidth/2 - fullW/2, underHeight/2);
         this.indB = constrain(map(tk0, 0, fullW/2, animA, 0), 0, animA);
-        this.t2.set(width + 150, this.yOrg);
+        this.t2.set(underWidth + 150, this.yOrg);
       } else {
-        var tk0 = dist(this.xOrg, this.yOrg, width/2 + fullW/2, height/2);
+        var tk0 = dist(this.xOrg, this.yOrg, underWidth/2 + fullW/2, underHeight/2);
         this.indB = constrain(map(tk0, 0, fullW/2, animA, 0), 0, animA);
         this.t2.set(-150, this.yOrg);
       }
-      // this.t2.set(width + 150, this.yOrg);
+      // this.t2.set(underWidth + 150, this.yOrg);
 
     }
 
@@ -95,9 +95,9 @@ class Spill {
     }
 
     // this.t1.set(this.xOrg, -150);
-    // this.t2.set(this.xOrg, height + 150);
-    // this.t1.set(this.xOrg, this.yOrg - height);
-    // this.t2.set(this.xOrg, this.yOrg + height);
+    // this.t2.set(this.xOrg, underHeight + 150);
+    // this.t1.set(this.xOrg, this.yOrg - underHeight);
+    // this.t2.set(this.xOrg, this.yOrg + underHeight);
   }
 
   tweak(){
@@ -112,9 +112,9 @@ class Spill {
   reset(){
     this.ticker = 0;
 
-    this.p1 = createVector(this.xOrg, this.yOrg - height);
-    this.p2 = createVector(this.xOrg, this.yOrg - height);
-    this.p3 = createVector(this.xOrg, this.yOrg - height);
+    this.p1 = createVector(this.xOrg, this.yOrg - underHeight);
+    this.p2 = createVector(this.xOrg, this.yOrg - underHeight);
+    this.p3 = createVector(this.xOrg, this.yOrg - underHeight);
     // this.p4 = createVector(this.xOrg, -100);
     // this.p5 = createVector(this.xOrg, -100);
   }

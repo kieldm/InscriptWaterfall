@@ -64,7 +64,7 @@ function findMaxSize(){
   pgTextSize = sizeHolder;
 
   ///////// MAKE SURE THE HEIGHT DOESN'T BRAKE THE HEIGHT
-  var heightTest = (height - 100) - (inputText.length - 1) * leading;
+  var heightTest = (underHeight - 100) - (inputText.length - 1) * leading;
   let holdH = inputText.length * sizeHolder * tFontFactor[selFont];
   while(holdH > heightTest){
     holdH = inputText.length * sizeHolder * tFontFactor[selFont];
@@ -85,15 +85,6 @@ function setFont(val){
   setText();
 }
 
-function setScaler(val){
-  scaler = map(val, 0, 100, 0.1, 1);
-
-  wWindow = map(scaler, 0, 1, wWindowMin, wWindowMax);
-  
-  setText();
-}
-
-
 ////////////////////////////////////////
 /////////////////////////// CANVAS SIZE
 ////////////////////////////////////////
@@ -113,6 +104,7 @@ function setCanvasSize(val){
 
   windowResized();
 
+  setText();
 }
 
 function setCustomW(val){
@@ -166,6 +158,32 @@ function setUserXoffset(val){
 
 function setUserYoffset(val){
   userYoffset = map(val, 0, 100, -mainGraphic.height * 3/4, mainGraphic.height * 3/4);
+}
+
+function setScaler(val){
+  scaler = map(val, 0, 100, 0.4, 1);
+  document.getElementById('scalerInput').value = round(scaler, 1);
+
+  wWindowMin = underWidth/8,
+  wWindowMax = underWidth;
+  wWindow = map(scaler, 0, 1, wWindowMin, wWindowMax);
+
+  console.log("SCALER IS NOW: " + scaler)
+
+  setText();
+}
+
+function setScalerInput(val){
+  scaler = val;
+  document.getElementById('scaler').value = map(scaler, 0.4, 1, 0, 100);
+
+  wWindowMin = underWidth/8,
+  wWindowMax = underWidth;
+  wWindow = map(scaler, 0, 1, wWindowMin, wWindowMax);
+
+  console.log("SCALER IS NOW: " + scaler)
+
+  setText();
 }
 
 function setSandRes(val){
@@ -365,7 +383,7 @@ function setUploadImage(inputElement) {
                   console.log('Loaded image dimensions:', loadedImg.width, 'x', loadedImg.height);
 
                   sizedImage = userImage;
-                  sizedImage.resize(width,height);
+                  sizedImage.resize(underWidth, underHeight);
 
                   document.getElementById('uploadedImage').innerHTML = selectedFile.files[0].name;
                   document.getElementById('uploadedImage').style.display = "block";

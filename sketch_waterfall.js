@@ -33,6 +33,8 @@ var animPreset1 = 0;
 var offsetTexture = true;
 var animMode = 0;
 
+var underWidth, underHeight;
+
 var customW = 1080;
 var customH = 1350;
 
@@ -69,20 +71,32 @@ var animateToggle = false;
 var staggerX = true;
 var staggerY = false;
 
-var selFont = 3;
+var selFont = 0;
 
 function preload(){
-  tFont[0] = loadFont("resources/Inter-Medium.ttf");
-  tFont[1] = loadFont("resources/Geist-ExtraBold.ttf");
-  tFont[2] = loadFont("resources/Evans-Narrow-Bold-Italic.otf");
-  tFont[3] = loadFont("resources/Heading-Now-45-Medium.otf");
-  tFont[4] = loadFont("resources/NeueWorld-CondensedRegular.ttf");
+  // tFont[0] = loadFont("resources/Inter-Medium.ttf");
+  // tFont[1] = loadFont("resources/Geist-ExtraBold.ttf");
+  // tFont[2] = loadFont("resources/Evans-Narrow-Bold-Italic.otf");
+  // tFont[3] = loadFont("resources/Heading-Now-45-Medium.otf");
+  // tFont[4] = loadFont("resources/NeueWorld-CondensedRegular.ttf");
+  tFont[0] = loadFont("resources/Spectral-ExtraBold Italic-Desktop.otf");
+  tFont[1] = loadFont("resources/PPEditorialNew-UltraboldItalic.otf");
+  tFont[2] = loadFont("resources/NewSpirit-BoldCondensed.otf");
+  tFont[3] = loadFont("resources/FETTEFRA.TTF");
+  tFont[4] = loadFont("resources/Times New Roman Bold Italic.ttf");
+  tFont[5] = loadFont("resources/Comic Sans MS Bold.ttf");
 
-  tFontFactor[0] = 0.75;
-  tFontFactor[1] = 0.75;
-  tFontFactor[2] = 0.8;
-  tFontFactor[3] = 0.75;
+  // tFontFactor[0] = 0.75;
+  // tFontFactor[1] = 0.75;
+  // tFontFactor[2] = 0.8;
+  // tFontFactor[3] = 0.75;
+  // tFontFactor[4] = 0.72;
+  tFontFactor[0] = 0.7;
+  tFontFactor[1] = 0.8;
+  tFontFactor[2] = 0.75;
+  tFontFactor[3] = 0.9;
   tFontFactor[4] = 0.72;
+  tFontFactor[5] = 0.8;
 
   defaultImage = loadImage("resources/glencoe.jpg");
   sizedImage = defaultImage;
@@ -96,8 +110,6 @@ function setup(){
 
   mainCanvas.parent(canvasContainer);
 
-  sizedImage.resize(width,height);
-
   document.getElementById("textArea").value = starterText;
 
   bkgdColor = color("#000000");
@@ -108,11 +120,12 @@ function setup(){
   colorSet[3] = color('#491bf2');
   colorSet[4] = color('#6d1bbf');
 
-  wWindowMin = width/8,
-  wWindowMax = width;
+  wWindowMin = underWidth/8,
+  wWindowMax = underWidth;
   wWindow = map(scaler, 0, 1, wWindowMin, wWindowMax);
 
   windowResized();
+  sizedImage.resize(underWidth, underHeight);
 
   thisDensity = pixelDensity();
   cwidth = width;
@@ -135,15 +148,16 @@ function draw() {
   // console.log(previewScaler)
 
   push();
-    // translate(width/2, height/2);
-    // scale(previewScaler);
-    // translate(-width/2, -height/2);
+    translate(width/2, height/2);
+    scale(previewScaler);
+    translate(-underWidth/2, -underHeight/2);
     
     // translate(width/2, height/2);
     // scale(0.2);
     // translate(-width/2, -height/2);
 
-    // image(corePG, width/2, height/2);
+    // image(corePG, 0, 0);
+    // image(sizedImage, 0, 0);
 
     // if(imageOnlyToggle){
     //   image(mainGraphic, 0, 0);
@@ -154,16 +168,16 @@ function draw() {
         }
       pop();
     // }
-  pop();
 
-  // blend(sizedImage, 0, 0, width, height, 0, 0, width, height, SCREEN);
-  if(imageForeToggle){
-    if(imageInvertToggle){
-      blend(sizedImage, 0, 0, width, height, 0, 0, width, height, SCREEN);
-    } else {
-      blend(sizedImage, 0, 0, width, height, 0, 0, width, height, MULTIPLY);
+    // blend(sizedImage, 0, 0, width, height, 0, 0, width, height, SCREEN);
+    if(imageForeToggle){
+      if(imageInvertToggle){
+        blend(sizedImage, 0, 0, underWidth, underHeight, 0, 0, underWidth, underHeight, SCREEN);
+      } else {
+        blend(sizedImage, 0, 0, underWidth, underHeight, 0, 0, underWidth, underHeight, MULTIPLY);
+      }
     }
-  }
+  pop();
 
   // blendMode(MULTIPLY);
   // background(255);
@@ -180,8 +194,8 @@ function draw() {
 function analyzeText(){
   sands = [];
 
-  for(var m = 0; m <= corePG.width/sandRes; m++){
-    for(var n = 0; n <= corePG.height/sandRes; n++){
+  for(var m = 0; m <= (underWidth)/sandRes; m++){
+    for(var n = 0; n <= (underHeight)/sandRes; n++){
       var x = m * sandRes;
       if(staggerX){ x += (n%2) * sandRes/2; }
 

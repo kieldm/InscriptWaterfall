@@ -80,13 +80,22 @@
 
           <div class="subModule">
             <select name="fontSelect" id="fontSelect" onchange="setFont(this.value)">
-              <option value="0">Inter - Medium</option>
-              <option value="1">Geist - Extra Bold</option>
-              <option value="2">Evans Narrow - Bold Italic</option>
-              <option value="3" selected>Heading Now - Medium</option>
-              <option value="4">Neue World - Condensed Regular</option>
+              <option value="0" selected>Spectral - ExtraBold Italic</option>
+              <option value="1">Editorial New - UltraBold Italic</option>
+              <option value="2">New Spirit - Bold Condensed</option>
+              <option value="3">FETTEFRA</option>
+              <option value="4">Time New Roman - Bold Italic</option>
+              <option value="5">Comic Sans - Bold</option>
             </select>
+          </div>
 
+          <div class="subModule">
+            <div class="subModuleLabel_duo">
+              <div class="moduleLabel">Text Size</div>
+              <input type="number" min="0.1" max="1" value="0.9" step="0.4" id="scalerInput" oninput="setScalerInput(this.value)"></input>
+            </div>
+
+            <input type="range" class="ranger" min="0" max="100" value="80" id="scaler" oninput="setScaler(this.value)">
           </div>
 
         </div>

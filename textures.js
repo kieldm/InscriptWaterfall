@@ -8,8 +8,8 @@
 
 function drawCorePG(){   // straight text
   // var w = holdW * 1.1;
-  var w = width;
-  var h = height;
+  var w = width * 1/previewScaler;
+  var h = height * 1/previewScaler;
   // var h = (inputText.length) * pgTextSize * tFontFactor[selFont] * 1.1;
 
   console.log("CORE PG IS: " + w + " by " + h);

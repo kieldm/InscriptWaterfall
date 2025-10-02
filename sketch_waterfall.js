@@ -86,6 +86,16 @@ function preload(){
   tFont[4] = loadFont("resources/Times New Roman Bold Italic.ttf");
   tFont[5] = loadFont("resources/Comic Sans MS Bold.ttf");
 
+  tFont[6] = loadFont("resources/ManukaCondensed-Bold.otf");
+  tFont[7] = loadFont("resources/ManukaCondensed-Black.otf");
+  tFont[8] = loadFont("resources/ManukaCondensed-Ultra.otf");
+  tFont[9] = loadFont("resources/SöhneSchmal-Dreiviertelfett.otf");
+  tFont[10] = loadFont("resources/Superheat-ExtraBold.otf");
+  tFont[11] = loadFont("resources/Superheat-Black.otf");
+  tFont[12] = loadFont("resources/Triade-Upright.otf");
+  tFont[13] = loadFont("resources/Triade-Slanted.otf");
+  tFont[14] = loadFont("resources/Triade-Backslant.otf");
+
   // tFontFactor[0] = 0.75;
   // tFontFactor[1] = 0.75;
   // tFontFactor[2] = 0.8;
@@ -97,6 +107,16 @@ function preload(){
   tFontFactor[3] = 0.9;
   tFontFactor[4] = 0.72;
   tFontFactor[5] = 0.8;
+
+  tFontFactor[6] = 0.74;
+  tFontFactor[7] = 0.74;
+  tFontFactor[8] = 0.74;
+  tFontFactor[9] = 0.72;
+  tFontFactor[10] = 0.72;
+  tFontFactor[11] = 0.72;
+  tFontFactor[12] = 0.73;
+  tFontFactor[13] = 0.73;
+  tFontFactor[14] = 0.73;
 
   defaultImage = loadImage("resources/glencoe.jpg");
   sizedImage = defaultImage;

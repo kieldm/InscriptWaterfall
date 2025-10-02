@@ -89,7 +89,7 @@ function preload(){
   tFont[6] = loadFont("resources/ManukaCondensed-Bold.otf");
   tFont[7] = loadFont("resources/ManukaCondensed-Black.otf");
   tFont[8] = loadFont("resources/ManukaCondensed-Ultra.otf");
-  tFont[9] = loadFont("resources/SöhneSchmal-Dreiviertelfett.otf");
+  tFont[9] = loadFont("resources/SohneSchmal-Dreiviertelfett.otf");
   tFont[10] = loadFont("resources/Superheat-ExtraBold.otf");
   tFont[11] = loadFont("resources/Superheat-Black.otf");
   tFont[12] = loadFont("resources/Triade-Upright.otf");

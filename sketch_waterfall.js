@@ -71,7 +71,7 @@ var animateToggle = false;
 var staggerX = true;
 var staggerY = false;
 
-var selFont = 16;
+var selFont = 0;
 
 function preload(){
   // tFont[0] = loadFont("resources/Inter-Medium.ttf");

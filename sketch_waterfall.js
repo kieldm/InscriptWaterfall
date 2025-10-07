@@ -71,7 +71,7 @@ var animateToggle = false;
 var staggerX = true;
 var staggerY = false;
 
-var selFont = 0;
+var selFont = 16;
 
 function preload(){
   // tFont[0] = loadFont("resources/Inter-Medium.ttf");
@@ -96,6 +96,9 @@ function preload(){
   tFont[13] = loadFont("resources/Triade-Slanted.otf");
   tFont[14] = loadFont("resources/Triade-Backslant.otf");
 
+  tFont[15] = loadFont("resources/AtlanticTRIAL-Regular.otf");
+  tFont[16] = loadFont("resources/AtlanticTRIAL-Sharp-Left.otf");
+
   // tFontFactor[0] = 0.75;
   // tFontFactor[1] = 0.75;
   // tFontFactor[2] = 0.8;
@@ -117,6 +120,9 @@ function preload(){
   tFontFactor[12] = 0.73;
   tFontFactor[13] = 0.73;
   tFontFactor[14] = 0.73;
+
+  tFontFactor[15] = 0.76;
+  tFontFactor[16] = 0.76;
 
   defaultImage = loadImage("resources/glencoe.jpg");
   sizedImage = defaultImage;

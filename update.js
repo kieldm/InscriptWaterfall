@@ -186,6 +186,20 @@ function setScalerInput(val){
   setText();
 }
 
+function setLeading(val){
+  leading = round(val);
+  document.getElementById('leadingInput').value = leading;
+
+  setText();
+}
+
+function setLeadingInput(val){
+  leading = round(val);
+  document.getElementById('leading').value = leading;
+
+  setText();
+}
+
 function setSandRes(val){
   sandRes = int(map(val, 0, 100, 20, 3));
   document.getElementById('sandResInput').value = sandRes;

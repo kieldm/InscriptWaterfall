@@ -95,6 +95,8 @@
               <option value="12">Triade - Upright</option>
               <option value="13">Triade - Slanted</option>
               <option value="14">Triade - Backslant</option>
+              <option value="15">Atlantic - Regular</option>
+              <option value="16">Atlantic - Sharp Left</option>
             </select>
           </div>
 
@@ -105,6 +107,15 @@
             </div>
 
             <input type="range" class="ranger" min="0" max="100" value="80" id="scaler" oninput="setScaler(this.value)">
+          </div>
+
+          <div class="subModule">
+            <div class="subModuleLabel_duo">
+              <div class="moduleLabel">Leading</div>
+              <input type="number" min="-100" max="100" value="10" id="leadingInput" oninput="setLeadingInput(this.value)"></input>
+            </div>
+
+            <input type="range" class="ranger" min="-100" max="100" value="10" id="leading" oninput="setLeading(this.value)">
           </div>
 
         </div>
